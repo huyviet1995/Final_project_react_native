@@ -11,34 +11,6 @@ export default class App extends React.Component {
     }
   }
 
-  fetchProducts = (tableName) => {
-    const table_path = "/" + tableName; 
-    const table_ref = database.ref(table_path);
-    table_ref.on('value',(snapshot) => {
-      console.log("Read from the database");
-      console.log(snapshot.val());
-      this.setState({
-        product_price: snapshot.val(),
-      })
-    });
-  }
-
-
-   pushProducts = (tableName, first_name, last_name, email) => {
-    const table_path = "/" + tableName;
-    const table_ref = database.ref(table_path);
-    const new_user = {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-    }
-    table_ref.push(new_user).then((data) => {
-      console.log("Write to database");
-      console.log("data",data);
-    }).catch((error) => {
-      console.log('error ' + error);
-    })
-  }
 
   goToAddProduct = () => {
     this.props.navigation.navigate("AddProduct");
@@ -47,7 +19,7 @@ export default class App extends React.Component {
   render() {
     return (
       <AppContainer/>
-    );
+    )
   }
 }
 

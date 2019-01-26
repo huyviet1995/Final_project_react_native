@@ -1,0 +1,6 @@
+
+      //<FlatList style = {styles.container}
+        //data = {this.state.products} 
+        //keyExtractor = {this._keyExtractor}
+        //renderItem = {this._renderItem}
+      ///>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "76551851862",
+    "firebase_url": "https://coderschool-final-project.firebaseio.com",
+    "project_id": "coderschool-final-project",
+    "storage_bucket": "coderschool-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76551851862:android:2f23ed51ea58bcbc",
+        "android_client_info": {
+          "package_name": "com.coderschool.final_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "76551851862-gs3epfvi2b3a4klsbo96pe2l50e96gqc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2A1TD8fPxdazQgODRLHjVrv97eL1e79s"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
