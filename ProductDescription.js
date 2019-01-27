@@ -12,11 +12,13 @@ export class ProductDescription extends React.Component {
       uri: "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjn78n7iYvgAhWIMd4KHQrpCX4QjRx6BAgBEAU&url=https%3A%2F%2Fpixabay.com%2Fen%2Fphotos%2Fshopping%2520mall%2F&psig=AOvVaw3jWG6lrSsccTvrUJeI1WxH&ust=1548579403389296"
     } 
     return (
-      <TouchableHighlight onPress = {this.props.productOnPress} style = {styles.container}>
-      <View>
+      <TouchableHighlight onPress = {this.props.productOnPress}>
+      <View> 
         <Image source = {img_source} style = {styles.img}/>
-        <Text style = {styles.product_name}>{this.props.name}</Text>
-        <Text style = {styles.product_price}>{this.props.price}</Text>
+        <View style = {styles.description}>
+          <Text style = {styles.product_name}>{this.props.name}</Text>
+          <Text style = {styles.product_price}>{this.props.price}</Text>
+        </View>
        </View>
       </TouchableHighlight>
     )
@@ -26,6 +28,7 @@ export class ProductDescription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: "row",
     height: 150, 
     width: 150,
     flex: 1,
@@ -33,12 +36,16 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     backgroundColor: "skyblue",
   },
-  product_name: {
-    fontSize: 30,
-    fontWeight: "bold",
+  img: {
+    flex: 1,
+    width: 100,
+    height: 100,
+    backgroundColor: 'blue',
   },
-  product_price: {
-    fontSize: 30,
-    fontWeight: "bold",
+  description: {
+    flexDirection: 'column',
+    height: 100,
+    width: 100,
+    backgroundColor: 'green',
   }
 })

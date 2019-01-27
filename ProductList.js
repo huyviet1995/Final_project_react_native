@@ -25,10 +25,10 @@ export class ProductList extends React.Component {
 
   _productOnPress =({item}) => {
     this.props.navigation.navigate("ProductSummary", {
-      product_name: item.name,
-      product_price: item.price,
-      product_description: item.description,
-      product_quantity: item.quantity, 
+      product_name: item.product_name,
+      product_price: item.product_price,
+      product_description: item.product_description,
+      product_quantity: item.product_quantity, 
     });
   }
 
@@ -56,6 +56,29 @@ export class ProductList extends React.Component {
     });
   }
 
+  logIn = async() => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Facebook.logInWithReadPermissionsAsync('352609001993220', {
+        permissions: ['public_profile'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  }
+
   async componentDidMount() {
     console.log("Products should be fetched correctly!");
     this.fetchProducts();
@@ -65,6 +88,7 @@ export class ProductList extends React.Component {
     console.log("Product to be displayed!");
     return (
       <FlatList style = {styles.container}
+        horizontal = {true}
         data = {this.state.products} 
         keyExtractor = {(item) => {item.id}}
         renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} productOnPress = {this._productOnPress({item})} />}

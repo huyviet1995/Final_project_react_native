@@ -16,12 +16,17 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "facebookAppId": "352609001993220",
+    "facebookScheme": "fb352609001993220",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
+    "android": {
+      "package": "com.coderschool.final_project"
+    },
     "ios": {
       "supportsTablet": true
     }
