@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button, Text,StyleSheet, View, Image, TextInput} from 'react-native';
+import firebase from 'firebase';
 
 export class Login extends React.Component {
   constructor(props) {
@@ -12,13 +13,14 @@ export class Login extends React.Component {
   }
 
   handleLogin = () => {
-    alert.alert("Logging in");
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => this.props.navigation.navigate("ProductList"),{
+    }).catch(error => this.setState({errorMessage: error.message}))
   }
 
   render() {
     return (
       <View style = {styles.container}>
-        <Text >Login!</Text>
+        <Text style = {styles.mainText}>Login!</Text>
         {this.state.errorMessage &&
         <Text>{this.state.errorMessage}</Text>}
         <View>
@@ -51,16 +53,16 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     justifyContent: "center",
+    alignItems: "center",
   },
   container: { 
     flex: 1, 
     backgroundColor: "white",
-    justifyContent: "center",
   },
   textInput: {
     backgroundColor: "white",
     fontSize: 15,
-    margin: 30,
+    margin: 10,
     borderColor: "black",
     borderBottomWidth: 2,
   },

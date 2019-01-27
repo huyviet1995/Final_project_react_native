@@ -1,31 +1,40 @@
 // SignUp.js
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
-export class SignUp extends React.Component {
-  constructor() {
+import * as firebase from 'firebase';
+
+export class SignUp extends React.Component { 
+  constructor(props) {
+    super(props);
     this.state = {
       errorMessage: null,
       email: "",
       password: "",
+      current_user: null,
     }    
   }
 
-  handleSignUp = () => {
-    console.log('handleSignUp')
+  _onCreateGoTo = () => {
+    this.props.navigation.navigate("ProductList");
   }
+
+  _handleSignUp = () => {
+    firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password).then(this._onCreateGoTo).catch(error => this.setState({errorMessage: error.message}));
+  }
+
   render() {
       return (
         <View style={styles.container}>
-          <Text>Sign Up</Text>
+          <Text style = {styles.mainText}> Sign Up</Text>
           {this.state.errorMessage &&
-            <Text style={{ color: 'red' }}>
+            <Text>
               {this.state.errorMessage}
             </Text>}
           <TextInput
             placeholder="Email"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={email => this.setState({email: email})}
+            onChangeText={(email) => this.setState({email: email})}
             value={this.state.email}
           />
           <TextInput
@@ -33,14 +42,15 @@ export class SignUp extends React.Component {
             placeholder="Password"
             autoCapitalize="none"
             style={styles.textInput}
-            onChangeText={password => this.setState({password: password})}
+            onChangeText={(password) => this.setState({password: password})}
             value={this.state.password}
           />
-          <Button title="Sign Up" onPress={this.handleSignUp} />
+          <Button title="Sign Up" onPress={this._handleSignUp} style = {styles.button} />
+          <Text> Already has an account? </Text>
           <Button
-            title="Already have an account? Login"
-            onPress={() => this.props.navigation.navigate('Login')}
-          />
+            style = {styles.button}
+            title = "Login"
+            onPress={() => this.props.navigation.navigate('Login')}/>
         </View>
       )
     }
@@ -48,8 +58,11 @@ export class SignUp extends React.Component {
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+    },
+    mainText: {
+      fontSize: 20,
+      fontWeight: "bold",
     },
     textInput: {
       height: 40,
@@ -57,5 +70,12 @@ export class SignUp extends React.Component {
       borderColor: 'gray',
       borderWidth: 1,
       marginTop: 8
+    },
+    errorMessage: {
+      color: "red",
+    },
+    button: {
+      backgroundColor: "blue",
+      padding: 3, 
     }
   })

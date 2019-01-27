@@ -6,12 +6,13 @@ import {CreateNewProduct} from './CreateNewProduct';
 import {createAppContainer, StackNavigator, createStackNavigator, createTabNavigator} from 'react-navigation';
 import {SignUp} from './auth/Signup.js';
 import {Login} from './auth/Login.js';
+import {Checkout} from './Checkout';
 
 export const AppContainer = createAppContainer(createStackNavigator({
   SignUp: {
     screen: SignUp,
     navigationOptions: ({navigation}) => ({
-      title: "Sign Up",
+      title: "Welcome",
     })
   },
 
@@ -22,10 +23,17 @@ export const AppContainer = createAppContainer(createStackNavigator({
     })
   },
 
+  Checkout: {
+    screen: Checkout,
+    navigationOptions: ({navigation}) => ({
+      title: "Your Basket",
+    })
+  },
+
   ProductList: {
     screen: ProductList,
     navigationOptions: ({navigation}) => ({
-      title: "List of Products",
+      title: "Product List",
       headerRight: (
         <Button 
           onPress = {() => navigation.navigate("CreateNewProduct")}
@@ -50,6 +58,6 @@ export const AppContainer = createAppContainer(createStackNavigator({
     }),
   },
 },{
-  initialRouteName: "SignUp",
+  initialRouteName: "ProductList",
 }
 ));
