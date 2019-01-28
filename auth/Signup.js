@@ -1,6 +1,6 @@
 // SignUp.js
 import React from 'react'
-import { StyleSheet, Text, TextInput, View, Button } from 'react-native'
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import * as firebase from 'firebase';
 
 export class SignUp extends React.Component { 
@@ -65,6 +65,7 @@ export class SignUp extends React.Component {
       fontWeight: "bold",
     },
     textInput: {
+      paddingLeft: 10,
       height: 40,
       width: '90%',
       borderColor: 'gray',

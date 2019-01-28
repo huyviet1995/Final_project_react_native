@@ -9,6 +9,7 @@ export class CreateNewProduct extends React.Component {
       product_name: "Enter Product Name",
       product_price: "Enter product price",
       product_quantity: "Enter product quantity",
+      product_description: "Enter product description",
     }
   }
 

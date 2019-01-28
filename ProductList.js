@@ -15,6 +15,7 @@ export class ProductList extends React.Component {
     this.loadMore = this.loadMore.bind(this);
     this.fetched_products = this.fetchProducts.bind(this);
     this._getCurrentUser = this._getCurrentUser.bind(this);
+    this._onPressGoTo = this._onPressGoTo.bind(this);
   }
 
   _keyExtractor = (item) => {
@@ -31,14 +32,6 @@ export class ProductList extends React.Component {
     this.props.navigation.navigate("CreateNewProduct");
   }
 
-  _productOnPress =({item}) => {
-    this.props.navigation.navigate("ProductSummary", {
-      product_name: item.product_name,
-      product_price: item.product_price,
-      product_description: item.product_description,
-      product_quantity: item.product_quantity, 
-    });
-  }
 
   loadMore = async () => {
     console.log("New products are being fetched!");
@@ -71,14 +64,22 @@ export class ProductList extends React.Component {
     this.fetchProducts();
   }
 
+  _onPressGoTo = ({item}) => {
+    this.props.navigation.navigate("ProductDetail", {
+      name: item.product_name,
+      quantity: item.product_quantity,
+      price: item.product_price,
+      description: item.product_description,
+    }); 
+  } 
+
   render() {
-    console.log("Product to be displayed!");
     return (
       <FlatList style = {styles.container}
         horizontal = {true}
         data = {this.state.products} 
         keyExtractor = {(item) => {item.id}}
-        renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} productOnPress = {this._productOnPress({item})} />}
+        renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} pressHere = {() => this._onPressGoTo({item})} />}
         refreshing = {this.state.loading}
         onRefresh = {() => this.loadMore()}
       />

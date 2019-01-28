@@ -46,15 +46,15 @@ export const AppContainer = createAppContainer(createStackNavigator({
 
   CreateNewProduct: {
     screen: CreateNewProduct,
-    navigationOptions: () => ({
+    navigationOptions: ({navigation}) => ({
       title: "Create a new products",
     }),
   },
 
   ProductDetail: {
     screen: ProductDetail,
-    navigationOptions: () => ({
-      title: "Detail of the product",
+    navigationOptions: ({navigation}) => ({
+      title: navigation.getParam("name"),
     }),
   },
 },{
