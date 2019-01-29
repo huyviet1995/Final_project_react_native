@@ -27,7 +27,7 @@ export class SignUp extends React.Component {
       console.log('error ' + error);
     })
     // Then navigate to the product list page.
-    this.props.navigation.navigate("ProductList");
+    this.props.navigation.navigate("MainFlow");
   }
 
   _handleSignUp = () => {

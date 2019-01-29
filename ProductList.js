@@ -79,7 +79,6 @@ export class ProductList extends React.Component {
   render() {
     return (
       <FlatList style = {styles.container}
-        horizontal = {true}
         data = {this.state.products} 
         keyExtractor = {(item) => {item.id}}
         renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} pressHere = {() => this._onPressGoTo({item})} />}

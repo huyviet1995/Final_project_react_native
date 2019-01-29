@@ -3,46 +3,33 @@ import {Button,View, Text, StyleSheet} from 'react-native';
 import {ProductDetail} from './ProductDetail';
 import {ProductList} from './ProductList';
 import {CreateNewProduct} from './CreateNewProduct';
-import {createAppContainer, createStackNavigator, } from 'react-navigation';
+import {createAppContainer, createStackNavigator, createBottomTabNavigator} from 'react-navigation';
 import {SignUp} from './auth/Signup.js'; import {Login} from './auth/Login.js';
 import {Checkout} from './Checkout';
 
-export const AppContainer = createAppContainer(createStackNavigator({
+const AuthFlow = createStackNavigator({
   SignUp: {
     screen: SignUp,
     navigationOptions: ({navigation}) => ({
-      title: "Welcome",
+      title: "Welcome to my final project",
     })
   },
 
   Login: {
     screen: Login,
     navigationOptions: ({navigation}) => ({
-      title: "Login",
-    })
-  },
+      title: "Login"
+    }),
+  }
+});
 
-  Checkout: {
-    screen: Checkout,
-    navigationOptions: ({navigation}) => ({
-      title: "Your Basket",
-    })
-  },
-
+const MainList = createStackNavigator({
   ProductList: {
     screen: ProductList,
     navigationOptions: ({navigation}) => ({
       title: "Product List",
     })
   },
-
-  CreateNewProduct: {
-    screen: CreateNewProduct,
-    navigationOptions: ({navigation}) => ({
-      title: "Create a new products",
-    }),
-  },
-
   ProductDetail: {
     screen: ProductDetail,
     navigationOptions: ({navigation}) => ({
@@ -50,6 +37,41 @@ export const AppContainer = createAppContainer(createStackNavigator({
     }),
   },
 },{
-  initialRouteName: "SignUp",
-}
-));
+  initialRouteName: "ProductList",
+});
+
+const MainFlow = createBottomTabNavigator({
+  MainScreen: MainList,
+  CreateNewProduct: {
+    screen: CreateNewProduct,
+    navigationOptions: ({navigation}) => ({
+      user_uid: navigation.getParam("user_uid"),
+      headerLeft: {
+        title: "New Product",
+      }
+    })
+  },
+  Checkout: {
+    screen: Checkout,
+    navigationOptions: ({navigation}) => ({
+      user_uid: navigation.getParam("user_uid"),
+      headerLeft: {
+        title: "New Product",
+      }
+    })
+  }
+}, {
+  initialRouteName: "MainScreen",
+});
+
+const MainContainer = createStackNavigator({
+  AuthFlow: AuthFlow,
+  MainFlow: MainFlow,
+},{
+  initialRouteName: "AuthFlow",
+  navigationOptions: {
+    headerVisible: false,
+  }
+})
+
+export const AppContainer = createAppContainer(MainContainer);
