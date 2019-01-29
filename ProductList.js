@@ -3,6 +3,7 @@ import {Button, FlatList, View, Text, StyleSheet} from 'react-native';
 import {ProductDescription} from './ProductDescription';
 import {database} from './Firebase.js';
 import {firebase} from 'firebase';
+import ImagePicker from 'react-native-image-picker';
 
 export class ProductList extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ export class ProductList extends React.Component {
     this._getCurrentUser = this._getCurrentUser.bind(this);
     this._onPressGoTo = this._onPressGoTo.bind(this);
   }
+
 
   _keyExtractor = (item) => {
     item.id;
@@ -70,9 +72,9 @@ export class ProductList extends React.Component {
     this.props.navigation.navigate("ProductDetail", {
       user_uid: this.state.user_uid,
       name: item.product_name,
-      quantity: item.product_quantity,
-      price: item.product_price,
+      quantity: item.product_quantity, price: item.product_price,
       description: item.product_description,
+      image: item.product_image,
     }); 
   } 
 
@@ -81,10 +83,9 @@ export class ProductList extends React.Component {
       <FlatList style = {styles.container}
         data = {this.state.products} 
         keyExtractor = {(item) => {item.id}}
-        renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} pressHere = {() => this._onPressGoTo({item})} />}
+        renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} product_description = {item.product_description} product_image = {item.product_image} price = {item.product_price} pressHere = {() => this._onPressGoTo({item})} />}
         refreshing = {this.state.loading}
-        onRefresh = {() => this.loadMore()}
-      />
+        onRefresh = {() => this.loadMore()} />
     )
   }
 }

@@ -32,8 +32,7 @@ const MainList = createStackNavigator({
   },
   ProductDetail: {
     screen: ProductDetail,
-    navigationOptions: ({navigation}) => ({
-      title: navigation.getParam("name"),
+    navigationOptions: ({navigation}) => ({ title: navigation.getParam("name"),
     }),
   },
 },{
@@ -45,10 +44,8 @@ const MainFlow = createBottomTabNavigator({
   CreateNewProduct: {
     screen: CreateNewProduct,
     navigationOptions: ({navigation}) => ({
+      title : "New Product",
       user_uid: navigation.getParam("user_uid"),
-      headerLeft: {
-        title: "New Product",
-      }
     })
   },
   Checkout: {
@@ -62,6 +59,9 @@ const MainFlow = createBottomTabNavigator({
   }
 }, {
   initialRouteName: "MainScreen",
+  tabBarOptions: {
+    labelStyles: {fontSize: 19, color: "blue"}
+  }
 });
 
 const MainContainer = createStackNavigator({

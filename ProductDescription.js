@@ -8,19 +8,17 @@ export class ProductDescription extends React.Component {
   }
 
   render() {
-    const img_source = {
-      uri: "https://www.google.com/url?sa=i&source=images&cd=&ved=2ahUKEwjn78n7iYvgAhWIMd4KHQrpCX4QjRx6BAgBEAU&url=https%3A%2F%2Fpixabay.com%2Fen%2Fphotos%2Fshopping%2520mall%2F&psig=AOvVaw3jWG6lrSsccTvrUJeI1WxH&ust=1548579403389296"
-    } 
     console.log(this.props.pressHere);
     return (
-      <TouchableHighlight style = {styles.container} onPress = {this.props.pressHere}> 
-        <View>
-        <Image source = {img_source} style = {styles.img}/>
+      <TouchableHighlight onPress = {this.props.pressHere}> 
+      <View style = {styles.container}>
+        <Image source = {{uri: this.props.product_image}} style = {styles.img}/>
         <View style = {styles.info}>
           <Text style = {styles.product_name}>{this.props.name}</Text>
           <Text style = {styles.product_price}>{this.props.price}</Text>
-        </View>
-        </View>
+          <Text style = {styles.description}>{this.props.product_description}</Text>
+          </View>
+      </View>
       </TouchableHighlight>
     )
   }
@@ -29,28 +27,27 @@ export class ProductDescription extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    width: 150,
+    flexDirection: "row",
+    width: "100%",
     height: 150,
     borderWidth: 1,
     margin: 2,
   },
-  info: {
-    alignItems: 'center',
-  },
   img: {
-    flex: 1,
-    width: 100,
-    height: 100,
-    backgroundColor: 'white',
-    borderWidth: 2,
+    width: 150,
+    height: 150,
   },
-  buttons: {
+  info: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    marginLeft: 3,
   },
   product_price: {
     color: "red",
+    fontWeight: "bold",
+    fontSize: 15, 
+  },
+  product_name: {
+    fontSize: 15,
     fontWeight: "bold",
   }
 })

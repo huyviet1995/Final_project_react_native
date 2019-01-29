@@ -8,9 +8,11 @@ export class Checkout extends React.Component {
       user_uid: null,
       loading: true,
     }
+    this._fetchUserProducts = this._fetchUserProducts.bind(this);
   }
 
   _fetchUserProducts = () => {
+    console.log("Hello World");
     this.setState({
       loading: true,
     })
@@ -22,6 +24,8 @@ export class Checkout extends React.Component {
         fetched_products.push(products_list[key]);
         fetched_products[fetched_products.length-1]["id"] = key;
       }
+      console.log("Here is the fetched products");
+      console.log(fetched_products);
       this.setState({
         products: fetched_products,
         loading: false,
@@ -30,9 +34,14 @@ export class Checkout extends React.Component {
   }
 
   componentDidMount = async() => {
+    console.log("Here is the navigation!");
+    console.log(this.props.navigation);
+    console.log("Here is the get Param of the navigation!");
+    console.log(this.props.navigation.getParam);
     const user_uid = this.props.navigation.getParam("user_uid"); 
-    console.log("Checkout User Uid: " + user_uid);
+    console.log(user_uid);
     this.setState({user_uid: user_uid});
+    this._fetchUserProducts
   }
 
   render() {
@@ -43,8 +52,7 @@ export class Checkout extends React.Component {
         keyExtractor = {(item) => {item.id}}
         renderItem = {({item}) => <ProductDescription id = {item.id} name = {item.product_name} quantity = {item.product_quantity} price = {item.product_price} pressHere = {() => this._onPressGoTo({item})} />}
         refreshing = {this.state.loading}
-        onRefresh = {() => this.loadMore()}
-      />
+        onRefresh = {() => this.loadMore()}/>
     )
   }
 }
