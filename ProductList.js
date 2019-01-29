@@ -2,13 +2,13 @@ import React, {Component} from 'react';
 import {Button, FlatList, View, Text, StyleSheet} from 'react-native';
 import {ProductDescription} from './ProductDescription';
 import {database} from './Firebase.js';
-import {firebase} from 'firebase'
+import {firebase} from 'firebase';
 
 export class ProductList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      current_user: null,
+      user_uid: null,
       products: [],
       loading: false,
     }
@@ -23,9 +23,12 @@ export class ProductList extends React.Component {
   }
 
   _getCurrentUser = () => {
-    console.log("Current User is here!");
-    const {current_user} = firebase.auth().currentUser;
-    this.setState({current_user: current_user}); 
+    const user_uid = this.props.navigation.getParam("user_uid");
+    console.log("Here is the user uid");
+    console.log(user_uid);
+    this.setState({
+      user_uid: user_uid,
+    });
   } 
 
   _goToCreateNewProduct = () => {
@@ -58,14 +61,14 @@ export class ProductList extends React.Component {
   }
 
   async componentDidMount() {
-    this._getCurrentUser;
-    console.log(this.state.current_user);
-    console.log("Products should be fetched correctly!");
+    this._getCurrentUser();
+    console.log(this.state.user_uid);
     this.fetchProducts();
   }
 
   _onPressGoTo = ({item}) => {
     this.props.navigation.navigate("ProductDetail", {
+      user_uid: this.state.user_uid,
       name: item.product_name,
       quantity: item.product_quantity,
       price: item.product_price,

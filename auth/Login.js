@@ -6,15 +6,25 @@ export class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "",
-      password: "",
+      user_uid: null,
+      email: "nc@gmail.com",
+      password: "123456",
       errorMessage: null,
     }
+    this._navigateTo = this._navigateTo.bind(this);
+  }
+
+  _navigateTo = () => {
+    const user_uid = firebase.auth().currentUser.uid;
+    console.log("loggin in!");
+    console.log(user_uid);
+    this.props.navigation.navigate("ProductList",{
+      user_uid: user_uid,
+    });
   }
 
   handleLogin = () => {
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(() => this.props.navigation.navigate("ProductList"),{
-    }).catch(error => this.setState({errorMessage: error.message}))
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password).then(this._navigateTo).catch(error => this.setState({errorMessage: error.message}));
   }
 
   render() {

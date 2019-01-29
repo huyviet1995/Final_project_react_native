@@ -19,6 +19,7 @@ export class CreateNewProduct extends React.Component {
     const new_product = {
       product_name: this.state.product_name,
       product_price: this.state.product_price,
+      product_description: this.state.product_description,
       product_quantity: this.state.product_quantity
     };
     table_ref.push(new_product).then((data) => {
@@ -46,7 +47,11 @@ export class CreateNewProduct extends React.Component {
           style = {styles.textInput}
           placeholder = {"Enter product quantity"}
           onChangeText = {(text) => this.setState({product_quantity: text})}/>
-        <Button title = {"Creating a new product"} onPress = {this.createNewProduct}/>
+        <TextInput
+          style = {styles.textInput}
+          placeholder = {"Enter product description"}
+          onChangeText = {(text) => this.setState({product_description: text})}/>
+        <Button title = {"Create a new product"} onPress = {this.createNewProduct}/>
       </View>
     )
   }

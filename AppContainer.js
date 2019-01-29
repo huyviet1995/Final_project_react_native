@@ -3,9 +3,8 @@ import {Button,View, Text, StyleSheet} from 'react-native';
 import {ProductDetail} from './ProductDetail';
 import {ProductList} from './ProductList';
 import {CreateNewProduct} from './CreateNewProduct';
-import {createAppContainer, StackNavigator, createStackNavigator, createTabNavigator} from 'react-navigation';
-import {SignUp} from './auth/Signup.js';
-import {Login} from './auth/Login.js';
+import {createAppContainer, createStackNavigator, } from 'react-navigation';
+import {SignUp} from './auth/Signup.js'; import {Login} from './auth/Login.js';
 import {Checkout} from './Checkout';
 
 export const AppContainer = createAppContainer(createStackNavigator({
@@ -34,13 +33,6 @@ export const AppContainer = createAppContainer(createStackNavigator({
     screen: ProductList,
     navigationOptions: ({navigation}) => ({
       title: "Product List",
-      headerRight: (
-        <Button 
-          onPress = {() => navigation.navigate("CreateNewProduct")}
-          title = {"Create new product"}
-          color = {"skyblue"}
-        />
-      )
     })
   },
 
@@ -58,6 +50,6 @@ export const AppContainer = createAppContainer(createStackNavigator({
     }),
   },
 },{
-  initialRouteName: "ProductList",
+  initialRouteName: "SignUp",
 }
 ));

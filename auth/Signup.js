@@ -1,7 +1,7 @@
-// SignUp.js
 import React from 'react'
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import * as firebase from 'firebase';
+import {database} from '../Firebase.js';
 
 export class SignUp extends React.Component { 
   constructor(props) {
@@ -15,10 +15,23 @@ export class SignUp extends React.Component {
   }
 
   _onCreateGoTo = () => {
+    // Create a new user basket first 
+    const user_uid = firebase.auth().currentUser.uid;
+    const table_ref = database.ref('/user_basket');
+    table_ref.child(user_uid).set({
+      name: "",
+    }).then((data) => {
+      console.log("Adding a new user basket");
+      console.log(data);
+    }).catch((error) => {
+      console.log('error ' + error);
+    })
+    // Then navigate to the product list page.
     this.props.navigation.navigate("ProductList");
   }
 
   _handleSignUp = () => {
+    // Create a new user with that email and password 
     firebase.auth().createUserWithEmailAndPassword(this.state.email,this.state.password).then(this._onCreateGoTo).catch(error => this.setState({errorMessage: error.message}));
   }
 
